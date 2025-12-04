@@ -56,9 +56,9 @@ class History:
   def checkout(self, commit_id: str):
     for c in reversed(self.commits):
       if c.id.startswith(commit_id):
-        print(f"Переход на коммит {c.id} — {c.message}")
+        print(f"Move to commit {c.id} — {c.message}")
         return deepcopy(c.files)
-    raise ValueError(f"Коммит с id '{commit_id}' не найден")
+    raise ValueError(f"Commit with id '{commit_id}' not found")
 
 
 class Giz:
@@ -71,16 +71,16 @@ class Giz:
     self.current_files[obj.name] = obj
     print(f"Added/edited: {obj.name}")
 
-    def commit(self, message: str = "Quick save"):
-      if not self.current_files:
-        print("No files")
-        return
-      self.history.add(self.current_files, message)
+  def commit(self, message: str = "Quick save"):
+    if not self.current_files:
+      print("No files")
+      return
+    self.history.add(self.current_files, message)
 
-    def status(self):
-        print(f"Project: {self.name} | Files in work directory: {len(self.current_files)}")
-        for f in self.current_files.values():
-            print(f"  • {f}")
+  def status(self):
+    print(f"Project: {self.name} | Files in work directory: {len(self.current_files)}")
+    for f in self.current_files.values():
+      print(f"  • {f}")
 
   def log(self):
     self.history.list()
